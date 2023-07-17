@@ -1,9 +1,16 @@
+'use client'
+
+import { Button } from '@/components/ui/button'
+import { useModal } from '@/context/ModalProvider'
 import { UserButton } from '@clerk/nextjs'
 
 export default function Home() {
+  const { openModal } = useModal()
+
   return (
-    <main>
+    <main className='p-4'>
       <UserButton afterSignOutUrl='/' />
+      <Button onClick={openModal}>Open Modal</Button>
     </main>
   )
 }
