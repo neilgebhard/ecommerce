@@ -1,7 +1,7 @@
 'use client'
 
 import { Button } from '@/components/ui/button'
-import { useModal } from '@/context/ModalProvider'
+import { useModal } from '@/app/context/StoreModalProvider'
 import { UserButton } from '@clerk/nextjs'
 
 export default function Home() {
