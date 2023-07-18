@@ -27,6 +27,7 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Button } from '@/components/ui/button'
 import axios from 'axios'
+import toast from 'react-hot-toast'
 
 const formSchema = z.object({
   name: z.string().min(1).max(50),
@@ -52,10 +53,10 @@ export const ModalProvider = ({ children }: { children: React.ReactNode }) => {
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
     try {
       setLoading(true)
-      const response = await axios.post('/api/stores', data)
-      console.log(response)
+      await axios.post('/api/stores', data)
+      toast.success('Store created successfully.')
     } catch (e) {
-      console.error(e)
+      toast.error('Something went wrong.')
     } finally {
       setLoading(false)
     }
