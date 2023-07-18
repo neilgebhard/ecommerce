@@ -26,6 +26,7 @@ import * as z from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Button } from '@/components/ui/button'
+import axios from 'axios'
 
 const formSchema = z.object({
   name: z.string().min(1).max(50),
@@ -39,6 +40,7 @@ const Context = createContext<Props>({} as Props)
 
 export const ModalProvider = ({ children }: { children: React.ReactNode }) => {
   const [isOpen, setIsOpen] = useState(false)
+  const [loading, setLoading] = useState(false)
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -48,8 +50,15 @@ export const ModalProvider = ({ children }: { children: React.ReactNode }) => {
   })
 
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
-    // TODO: create store
-    console.log(data)
+    try {
+      setLoading(true)
+      const response = await axios.post('/api/stores', data)
+      console.log(response)
+    } catch (e) {
+      console.error(e)
+    } finally {
+      setLoading(false)
+    }
   }
 
   const openModal = () => setIsOpen(true)
@@ -81,7 +90,7 @@ export const ModalProvider = ({ children }: { children: React.ReactNode }) => {
                     <FormItem>
                       <FormLabel>Name</FormLabel>
                       <FormControl>
-                        <Input {...field} />
+                        <Input disabled={loading} {...field} />
                       </FormControl>
                       <FormDescription>
                         This is the name of your store.
@@ -91,7 +100,9 @@ export const ModalProvider = ({ children }: { children: React.ReactNode }) => {
                   )}
                 />
                 <DialogFooter>
-                  <Button type='submit'>Submit</Button>
+                  <Button disabled={loading} type='submit'>
+                    Submit
+                  </Button>
                 </DialogFooter>
               </form>
             </div>
