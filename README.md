@@ -32,3 +32,7 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+npx prisma generate - Generates Prisma Client for use with the Data Proxy. The generate command will continue to watch the schema.prisma file and re-generate Prisma Client on file changes.
+
+npx prisma db push - Introspects the database to infer and executes the changes required to make your database schema reflect the state of your Prisma schema. By default, after changes have been applied to the database schema, generators are triggered (for example, Prisma Client). You do not need to manually invoke prisma generate.
