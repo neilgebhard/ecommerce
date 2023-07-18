@@ -1,6 +1,14 @@
 'use client'
 
 import { createContext, useContext, useState } from 'react'
+import * as z from 'zod'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { Button } from '@/components/ui/button'
+import axios from 'axios'
+import toast from 'react-hot-toast'
+import { useRouter } from 'next/navigation'
+
 import {
   Dialog,
   DialogContent,
@@ -8,7 +16,6 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from '@/components/ui/dialog'
 
 import {
@@ -21,13 +28,6 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-
-import * as z from 'zod'
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { Button } from '@/components/ui/button'
-import axios from 'axios'
-import toast from 'react-hot-toast'
 
 const formSchema = z.object({
   name: z.string().min(1).max(50),
@@ -43,6 +43,8 @@ export const ModalProvider = ({ children }: { children: React.ReactNode }) => {
   const [isOpen, setIsOpen] = useState(false)
   const [loading, setLoading] = useState(false)
 
+  const router = useRouter()
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -53,12 +55,18 @@ export const ModalProvider = ({ children }: { children: React.ReactNode }) => {
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
     try {
       setLoading(true)
-      await axios.post('/api/stores', data)
+      const response = await axios.post('/api/stores', data)
       toast.success('Store created successfully.')
+      setTimeout(() => {
+        router.push(`/${response.data.id}`)
+        setLoading(false)
+        setIsOpen(false)
+      }, 1000)
     } catch (e) {
       toast.error('Something went wrong.')
-    } finally {
+      console.error(e)
       setLoading(false)
+      setIsOpen(false)
     }
   }
 

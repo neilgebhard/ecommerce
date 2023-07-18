@@ -36,3 +36,5 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 npx prisma generate - Generates Prisma Client for use with the Data Proxy. The generate command will continue to watch the schema.prisma file and re-generate Prisma Client on file changes.
 
 npx prisma db push - Introspects the database to infer and executes the changes required to make your database schema reflect the state of your Prisma schema. By default, after changes have been applied to the database schema, generators are triggered (for example, Prisma Client). You do not need to manually invoke prisma generate.
+
+npx prisma migrate reset - delete database
