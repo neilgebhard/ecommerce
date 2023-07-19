@@ -22,9 +22,9 @@ export default async function DashboardLayout({
   if (!stores) redirect('/')
 
   return (
-    <div>
+    <>
       <Navbar stores={stores} />
       {children}
-    </div>
+    </>
   )
 }

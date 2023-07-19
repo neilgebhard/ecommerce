@@ -27,8 +27,6 @@ const Navbar = ({ stores }: { stores: Store[] }) => {
     },
   ]
 
-  console.log(routes)
-
   return (
     <div className='flex justify-between p-3 border-b'>
       <NavigationMenu>

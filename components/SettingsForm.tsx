@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Trash } from 'lucide-react'
+import { Save, Trash } from 'lucide-react'
 import { Store } from '@prisma/client'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -21,6 +21,7 @@ import {
 import { Input } from '@/components/ui/input'
 import toast from 'react-hot-toast'
 import axios from 'axios'
+import { useRouter } from 'next/navigation'
 
 const formSchema = z.object({
   name: z.string().min(2).max(50),
@@ -33,6 +34,8 @@ type Props = {
 const SettingsForm: React.FC<Props> = ({ store }) => {
   const [loading, setLoading] = useState(false)
 
+  const router = useRouter()
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -44,10 +47,25 @@ const SettingsForm: React.FC<Props> = ({ store }) => {
     try {
       setLoading(true)
       await axios.put(`/api/stores/${store.id}`, values)
+      toast.success('Store updated successfully.')
+      router.refresh()
     } catch (e) {
       console.error(e)
       toast.error('Something went wrong.')
     } finally {
+      setLoading(false)
+    }
+  }
+
+  const handleDelete = async () => {
+    try {
+      setLoading(true) //
+      await axios.delete(`/api/stores/${store.id}`)
+      toast.success('Store deleted successfully.')
+      router.refresh()
+    } catch (e) {
+      console.error(e)
+      toast.error('Something went wrong.')
       setLoading(false)
     }
   }
@@ -76,12 +94,13 @@ const SettingsForm: React.FC<Props> = ({ store }) => {
             )}
           />
           <Button disabled={loading} type='submit'>
+            <Save className='mr-2 h-4 w-4' />
             Update Store
           </Button>
         </form>
       </Form>
       <Separator className='my-5' />
-      <Button variant='destructive' size='sm'>
+      <Button variant='destructive' disabled={loading} onClick={handleDelete}>
         <Trash className='mr-2 h-4 w-4' />
         Delete Store
       </Button>

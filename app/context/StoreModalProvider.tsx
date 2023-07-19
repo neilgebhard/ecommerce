@@ -57,14 +57,12 @@ export const ModalProvider = ({ children }: { children: React.ReactNode }) => {
       setLoading(true)
       const response = await axios.post('/api/stores', data)
       toast.success('Store created successfully.')
-      setTimeout(() => {
-        router.push(`/${response.data.id}`)
-        setLoading(false)
-        setIsOpen(false)
-      }, 1000)
+      router.refresh()
+      router.push(`/${response.data.id}`)
     } catch (e) {
       toast.error('Something went wrong.')
       console.error(e)
+    } finally {
       setLoading(false)
       setIsOpen(false)
     }

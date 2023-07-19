@@ -39,7 +39,6 @@ export default function StoreCombobox({ stores }: { stores: Store[] }) {
         <Button
           variant='outline'
           role='combobox'
-          size='sm'
           aria-expanded={open}
           aria-label='Select a store'
           className='w-[200px] justify-between'

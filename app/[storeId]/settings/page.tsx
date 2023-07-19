@@ -25,7 +25,7 @@ const Settings: React.FC<Props> = async ({ params }) => {
   if (!store) redirect('/')
 
   return (
-    <div className='p-4'>
+    <div className='p-4 max-w-lg mx-auto'>
       <SettingsForm store={store} />
     </div>
   )
