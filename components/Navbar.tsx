@@ -13,6 +13,7 @@ import {
   navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu'
 import StoreCombobox from '@/components/StoreCombobox'
+import { cn } from '@/lib/utils'
 
 const Navbar = ({ stores }: { stores: Store[] }) => {
   const pathname = usePathname()
@@ -26,15 +27,20 @@ const Navbar = ({ stores }: { stores: Store[] }) => {
     },
   ]
 
+  console.log(routes)
+
   return (
-    <div className='flex justify-between p-3'>
+    <div className='flex justify-between p-3 border-b'>
       <NavigationMenu>
         <NavigationMenuList>
           <StoreCombobox stores={stores} />
           {routes.map((route) => (
             <NavigationMenuItem key={route.href}>
               <Link href={route.href} legacyBehavior passHref>
-                <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                <NavigationMenuLink
+                  className={navigationMenuTriggerStyle()}
+                  active={route.active}
+                >
                   {route.label}
                 </NavigationMenuLink>
               </Link>

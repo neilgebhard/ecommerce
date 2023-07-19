@@ -24,7 +24,6 @@ export default async function DashboardLayout({
   return (
     <div>
       <Navbar stores={stores} />
-      <pre>{JSON.stringify(stores, null, 2)}</pre>
       {children}
     </div>
   )
