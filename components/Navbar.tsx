@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { UserButton } from '@clerk/nextjs'
 import { useParams, usePathname } from 'next/navigation'
 
+import { Store } from '@prisma/client'
 import {
   NavigationMenu,
   NavigationMenuList,
@@ -11,12 +12,11 @@ import {
   NavigationMenuLink,
   navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu'
+import StoreCombobox from '@/components/StoreCombobox'
 
-const Navbar: React.FC = () => {
+const Navbar = ({ stores }: { stores: Store[] }) => {
   const pathname = usePathname()
   const params = useParams()
-
-  console.log('Navbar: ', pathname)
 
   const routes = [
     {
@@ -30,6 +30,7 @@ const Navbar: React.FC = () => {
     <div className='flex justify-between p-3'>
       <NavigationMenu>
         <NavigationMenuList>
+          <StoreCombobox stores={stores} />
           {routes.map((route) => (
             <NavigationMenuItem key={route.href}>
               <Link href={route.href} legacyBehavior passHref>
