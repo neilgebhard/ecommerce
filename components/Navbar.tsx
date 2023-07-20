@@ -13,13 +13,17 @@ import {
   navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu'
 import StoreCombobox from '@/components/StoreCombobox'
-import { cn } from '@/lib/utils'
 
 const Navbar = ({ stores }: { stores: Store[] }) => {
   const pathname = usePathname()
   const params = useParams()
 
   const routes = [
+    {
+      href: `/${params.storeId}`,
+      label: 'Dashboard',
+      active: pathname === `/${params.storeId}`,
+    },
     {
       href: `/${params.storeId}/settings`,
       label: 'Settings',

@@ -22,6 +22,8 @@ import { Input } from '@/components/ui/input'
 import toast from 'react-hot-toast'
 import axios from 'axios'
 import { useRouter } from 'next/navigation'
+import ConfirmDeleteModal from '@/components/ConfirmDeleteModal'
+import ApiAlert from './ApiAlert'
 
 const formSchema = z.object({
   name: z.string().min(2).max(50),
@@ -33,6 +35,7 @@ type Props = {
 
 const SettingsForm: React.FC<Props> = ({ store }) => {
   const [loading, setLoading] = useState(false)
+  const [openModal, setOpenModal] = useState(false)
 
   const router = useRouter()
 
@@ -47,7 +50,7 @@ const SettingsForm: React.FC<Props> = ({ store }) => {
     try {
       setLoading(true)
       await axios.put(`/api/stores/${store.id}`, values)
-      toast.success('Store updated successfully.')
+      toast.success('Store updated.')
       router.refresh()
     } catch (e) {
       console.error(e)
@@ -59,9 +62,9 @@ const SettingsForm: React.FC<Props> = ({ store }) => {
 
   const handleDelete = async () => {
     try {
-      setLoading(true) //
+      setLoading(true)
       await axios.delete(`/api/stores/${store.id}`)
-      toast.success('Store deleted successfully.')
+      toast.success('Store deleted.')
       router.refresh()
     } catch (e) {
       console.error(e)
@@ -100,10 +103,26 @@ const SettingsForm: React.FC<Props> = ({ store }) => {
         </form>
       </Form>
       <Separator className='my-5' />
-      <Button variant='destructive' disabled={loading} onClick={handleDelete}>
+      <ApiAlert
+        title='NEXT_PUBLIC_API_URL'
+        description={`${origin}/api/${store.id}`}
+        type='public'
+      />
+      <Separator className='my-5' />
+      <Button
+        variant='destructive'
+        disabled={loading}
+        onClick={() => setOpenModal(true)}
+      >
         <Trash className='mr-2 h-4 w-4' />
         Delete Store
       </Button>
+      <ConfirmDeleteModal
+        open={openModal}
+        onClose={() => setOpenModal(false)}
+        loading={loading}
+        onConfirm={handleDelete}
+      />
     </>
   )
 }

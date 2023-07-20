@@ -1,7 +1,7 @@
 'use client'
 
 import { Button } from '@/components/ui/button'
-import { useModal } from '@/app/context/StoreModalProvider'
+import { useModal } from '@/app/context/AddStoreModalProvider'
 
 export default function Home() {
   const { openModal } = useModal()

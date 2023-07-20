@@ -21,7 +21,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover'
-import { useModal } from '@/app/context/StoreModalProvider'
+import { useModal } from '@/app/context/AddStoreModalProvider'
 
 export default function StoreCombobox({ stores }: { stores: Store[] }) {
   const [open, setOpen] = React.useState(false)
@@ -41,11 +41,11 @@ export default function StoreCombobox({ stores }: { stores: Store[] }) {
           role='combobox'
           aria-expanded={open}
           aria-label='Select a store'
-          className='w-[200px] justify-between'
+          className='w-[200px]'
         >
           <StoreIcon className='mr-2 h-4 w-4' />
           {currentStore?.name}
-          <ChevronsUpDown className='ml-2 h-4 w-4 shrink-0 opacity-50' />
+          <ChevronsUpDown className='ml-auto h-4 w-4 shrink-0 opacity-50' />
         </Button>
       </PopoverTrigger>
       <PopoverContent className='w-[200px] p-0'>
@@ -62,15 +62,16 @@ export default function StoreCombobox({ stores }: { stores: Store[] }) {
                     setOpen(false)
                   }}
                 >
+                  <StoreIcon className='mr-2 h-4 w-4' />
+                  {store.name}
                   <Check
                     className={cn(
-                      'mr-2 h-4 w-4',
+                      'ml-auto h-4 w-4',
                       currentStore?.id === store.id
                         ? 'opacity-100'
                         : 'opacity-0'
                     )}
                   />
-                  {store.name}
                 </CommandItem>
               ))}
             </CommandGroup>
