@@ -1,4 +1,4 @@
-import { auth, redirectToSignIn } from '@clerk/nextjs'
+import { auth } from '@clerk/nextjs'
 
 import prismadb from '@/lib/prismadb'
 import { redirect } from 'next/navigation'
@@ -10,7 +10,7 @@ export default async function SetupLayout({
 }) {
   const { userId } = auth()
 
-  if (!userId) redirectToSignIn()
+  if (!userId) redirect('/sign-in')
 
   const store = await prismadb.store.findFirst({
     where: {

@@ -12,23 +12,38 @@ datasource db {
 }
 
 model Store {
-  id        String      @id @default(uuid())
+  id        String    @id @default(uuid())
   name      String
   userId    String
-  createdAt DateTime    @default(now())
-  updatedAt DateTime    @updatedAt
-  Billboard Billboard[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  Product   Product[] @relation("ProductToStore")
 }
 
-model Billboard {
-  id        String   @id @default(uuid())
-  name      String
-  store     Store    @relation(fields: [storeId], references: [id])
-  label     String
-  imageUrl  String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  storeId   String
+model Product {
+  id         String   @id @default(uuid())
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  // imageUrl   String
+  name       String
+  price      Decimal
+  isFeatured Boolean  @default(false)
+  isArchived Boolean  @default(false)
+  storeId    String
+  store      Store    @relation("ProductToStore", fields: [storeId], references: [id])
+  // image      Image[]  @relation("ProductToImage")
 
   @@index([storeId])
 }
+
+// model Image {
+//   id        String   @id @default(uuid())
+//   name      String
+//   url       String
+//   createdAt DateTime @default(now())
+//   updatedAt DateTime @updatedAt
+//   productId String
+//   Product   Product  @relation("ProductToImage", fields: [productId], references: [id])
+
+//   @@index([productId])
+// }

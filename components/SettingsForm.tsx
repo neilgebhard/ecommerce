@@ -105,7 +105,7 @@ const SettingsForm: React.FC<Props> = ({ store }) => {
       <Separator className='my-5' />
       <ApiAlert
         title='NEXT_PUBLIC_API_URL'
-        description={`${origin}/api/${store.id}`}
+        description={`${window.location.origin}/api/${store.id}`}
         type='public'
       />
       <Separator className='my-5' />
