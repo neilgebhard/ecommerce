@@ -7,14 +7,19 @@ import { Product } from '@prisma/client'
 import { Plus } from 'lucide-react'
 import { useParams, useRouter } from 'next/navigation'
 
+import { columns } from './columns'
+import { DataTable } from './data-table'
+
 const ProductsClient = ({ products }: { products: Product[] }) => {
   const router = useRouter()
   const params = useParams()
 
-  const formatted = products.map((product) => {
+  const data = products.map((product) => {
     return {
-      ...product,
+      name: product.name,
       price: formatToUSD.format(Number(product.price)),
+      isFeatured: product.isFeatured ? 'Yes' : 'No',
+      isArchived: product.isArchived ? 'Yes' : 'No',
     }
   })
 
@@ -32,8 +37,7 @@ const ProductsClient = ({ products }: { products: Product[] }) => {
         </Button>
       </div>
       <Separator className='my-8' />
-      <pre>{JSON.stringify(formatted, null, 2)}</pre>
-      {/* <DataTable /> */}
+      <DataTable columns={columns} data={data} />
     </>
   )
 }

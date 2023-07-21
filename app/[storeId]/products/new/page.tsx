@@ -60,7 +60,7 @@ const NewProduct = () => {
   }
 
   return (
-    <div className='p-4 mx-auto max-w-4xl'>
+    <div className='px-4 py-8 mx-auto max-w-4xl'>
       <h2 className='text-2xl font-bold tracking-tight'>Create Product</h2>
       <p className='text-sm text-muted-foreground'>
         Add a new product to your store

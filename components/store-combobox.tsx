@@ -21,7 +21,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover'
-import { useModal } from '@/app/context/AddStoreModalProvider'
+import { useModal } from '@/app/context/add-store-modal'
 
 export default function StoreCombobox({ stores }: { stores: Store[] }) {
   const [open, setOpen] = React.useState(false)

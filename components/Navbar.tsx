@@ -12,7 +12,7 @@ import {
   NavigationMenuLink,
   navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu'
-import StoreCombobox from '@/components/StoreCombobox'
+import StoreCombobox from '@/components/store-combobox'
 
 const Navbar = ({ stores }: { stores: Store[] }) => {
   const pathname = usePathname()

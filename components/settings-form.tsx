@@ -22,8 +22,8 @@ import { Input } from '@/components/ui/input'
 import toast from 'react-hot-toast'
 import axios from 'axios'
 import { useRouter } from 'next/navigation'
-import ConfirmDeleteModal from '@/components/ConfirmDeleteModal'
-import ApiAlert from './ApiAlert'
+import ConfirmDeleteModal from '@/components/confirm-delete-modal'
+import ApiAlert from './api-alert'
 
 const formSchema = z.object({
   name: z.string().min(2).max(50),
@@ -77,9 +77,12 @@ const SettingsForm: React.FC<Props> = ({ store }) => {
     <>
       <h2 className='text-2xl font-bold tracking-tight'>Settings</h2>
       <p className='text-sm text-muted-foreground'>Manage store preferences</p>
-      <Separator className='my-3' />
+      <Separator className='my-8' />
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-2'>
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className='space-y-8 max-w-sm'
+        >
           <FormField
             control={form.control}
             name='name'
@@ -102,13 +105,13 @@ const SettingsForm: React.FC<Props> = ({ store }) => {
           </Button>
         </form>
       </Form>
-      <Separator className='my-5' />
+      <Separator className='my-8' />
       <ApiAlert
         title='NEXT_PUBLIC_API_URL'
         description={`${window.location.origin}/api/${store.id}`}
         type='public'
       />
-      <Separator className='my-5' />
+      <Separator className='my-8' />
       <Button
         variant='destructive'
         disabled={loading}
