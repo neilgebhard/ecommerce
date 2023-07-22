@@ -5,7 +5,6 @@ import { CldUploadWidget } from 'next-cloudinary'
 import { Button } from '@/components/ui/button'
 import Image from 'next/image'
 import { ImagePlus, Trash } from 'lucide-react'
-import { useEffect, useState } from 'react'
 import useMounted from '@/hooks/useMounted'
 
 interface ImageUploadProps {

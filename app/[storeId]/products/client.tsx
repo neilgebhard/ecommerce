@@ -16,6 +16,7 @@ const ProductsClient = ({ products }: { products: Product[] }) => {
 
   const data = products.map((product) => {
     return {
+      id: product.id,
       name: product.name,
       price: formatToUSD.format(Number(product.price)),
       isFeatured: product.isFeatured ? 'Yes' : 'No',

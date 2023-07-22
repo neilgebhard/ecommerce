@@ -5,7 +5,7 @@ type Props = {
 }
 
 const Page: React.FC<Props> = async ({ params }) => {
-  const store = await prismadb.store.findFirst({
+  const store = await prismadb.store.findUnique({
     where: {
       id: params.storeId,
     },

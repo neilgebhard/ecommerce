@@ -20,8 +20,9 @@ import { useState } from 'react'
 import { Checkbox } from '@/components/ui/checkbox'
 import axios from 'axios'
 import toast from 'react-hot-toast'
-import { Plus } from 'lucide-react'
+import { Edit } from 'lucide-react'
 import ImageUpload from '@/components/image-upload'
+import { Image, Product } from '@prisma/client'
 
 const formSchema = z.object({
   name: z.string().min(1),
@@ -31,7 +32,13 @@ const formSchema = z.object({
   images: z.object({ url: z.string() }).array(),
 })
 
-const NewProduct = () => {
+interface Props {
+  product: Product & {
+    images: Image[]
+  }
+}
+
+const EditProduct = ({ product }: Props) => {
   const params = useParams()
   const [loading, setLoading] = useState(false)
   const router = useRouter()
@@ -39,21 +46,24 @@ const NewProduct = () => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: '',
-      price: 0,
-      isFeatured: false,
-      isArchived: false,
-      images: [],
+      name: product.name,
+      price: Number(product.price),
+      isFeatured: product.isFeatured,
+      isArchived: product.isArchived,
+      images: product.images,
     },
   })
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       setLoading(true)
-      await axios.post(`/api/stores/${params.storeId}/products`, values)
+      await axios.put(
+        `/api/stores/${params.storeId}/products/${product.id}`,
+        values
+      )
       router.refresh()
       router.push(`/${params.storeId}/products`)
-      toast.success('Product created')
+      toast.success('Product updated')
     } catch (e) {
       console.error(e)
       toast.error('Something went wrong')
@@ -64,9 +74,9 @@ const NewProduct = () => {
 
   return (
     <div className='px-4 py-8 mx-auto max-w-4xl'>
-      <h2 className='text-2xl font-bold tracking-tight'>Create Product</h2>
+      <h2 className='text-2xl font-bold tracking-tight'>Edit Product</h2>
       <p className='text-sm text-muted-foreground'>
-        Add a new product to your store
+        Edit this product of your store
       </p>
       <Separator className='my-8' />
       <Form {...form}>
@@ -185,7 +195,7 @@ const NewProduct = () => {
             )}
           />
           <Button type='submit' disabled={loading}>
-            <Plus className='mr-2 h-4 w-4' /> Create product
+            <Edit className='mr-2 h-4 w-4' /> Edit product
           </Button>
         </form>
       </Form>
@@ -193,4 +203,4 @@ const NewProduct = () => {
   )
 }
 
-export default NewProduct
+export default EditProduct
