@@ -20,17 +20,19 @@ import { useState } from 'react'
 import { Checkbox } from '@/components/ui/checkbox'
 import axios from 'axios'
 import toast from 'react-hot-toast'
-import { Plus } from 'lucide-react'
+import { Camera, Plus } from 'lucide-react'
+import ImageUpload from '@/components/image-upload'
 
 const formSchema = z.object({
   name: z.string().min(1),
   price: z.coerce.number().min(1),
   isFeatured: z.boolean(),
   isArchived: z.boolean(),
+  images: z.object({ url: z.string() }).array(),
 })
 
 const NewProduct = () => {
-  const params = useParams() // params.storeId
+  const params = useParams()
   const [loading, setLoading] = useState(false)
   const router = useRouter()
 
@@ -41,10 +43,12 @@ const NewProduct = () => {
       price: 0,
       isFeatured: false,
       isArchived: false,
+      images: [],
     },
   })
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    console.log(values)
     try {
       setLoading(true)
       await axios.post(`/api/stores/${params.storeId}/products`, values)
@@ -71,6 +75,30 @@ const NewProduct = () => {
           onSubmit={form.handleSubmit(onSubmit)}
           className='space-y-8 max-w-sm'
         >
+          <FormField
+            control={form.control}
+            name='images'
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Images</FormLabel>
+                <FormControl>
+                  <ImageUpload
+                    urls={field.value.map((image) => image.url)}
+                    disabled={loading}
+                    onChange={(url) =>
+                      field.onChange([...field.value, { url }])
+                    }
+                    onRemove={(url) =>
+                      field.onChange([
+                        ...field.value.filter((current) => current.url !== url),
+                      ])
+                    }
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
           <FormField
             control={form.control}
             name='name'
@@ -150,8 +178,8 @@ const NewProduct = () => {
                 <div className='space-y-1 leading-none'>
                   <FormLabel>Archived</FormLabel>
                   <FormDescription>
-                    Archived products are not on the market for sale (e.g. out
-                    of stock).
+                    Archived products are not displayed to customers on the
+                    market for sale (e.g. out of stock).
                   </FormDescription>
                 </div>
               </FormItem>

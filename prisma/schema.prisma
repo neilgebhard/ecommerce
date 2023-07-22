@@ -24,26 +24,24 @@ model Product {
   id         String   @id @default(uuid())
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
-  // imageUrl   String
   name       String
   price      Decimal
   isFeatured Boolean  @default(false)
   isArchived Boolean  @default(false)
   storeId    String
   store      Store    @relation("ProductToStore", fields: [storeId], references: [id])
-  // image      Image[]  @relation("ProductToImage")
+  images     Image[]  @relation("ProductToImage")
 
   @@index([storeId])
 }
 
-// model Image {
-//   id        String   @id @default(uuid())
-//   name      String
-//   url       String
-//   createdAt DateTime @default(now())
-//   updatedAt DateTime @updatedAt
-//   productId String
-//   Product   Product  @relation("ProductToImage", fields: [productId], references: [id])
+model Image {
+  id        String   @id @default(uuid())
+  url       String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  productId String
+  Product   Product  @relation("ProductToImage", fields: [productId], references: [id])
 
-//   @@index([productId])
-// }
+  @@index([productId])
+}

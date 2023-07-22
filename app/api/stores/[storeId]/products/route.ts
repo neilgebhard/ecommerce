@@ -11,7 +11,7 @@ export async function POST(
     const { storeId } = params
 
     const body = await req.json()
-    const { name, price, isFeatured, isArchived } = body
+    const { name, price, isFeatured, isArchived, images } = body
 
     if (!userId) {
       return new NextResponse('Unauthorized', { status: 401 })
@@ -33,7 +33,18 @@ export async function POST(
     }
 
     const product = await prismadb.product.create({
-      data: { name, price, isFeatured, isArchived, storeId: params.storeId },
+      data: {
+        name,
+        price,
+        isFeatured,
+        isArchived,
+        storeId: params.storeId,
+        images: {
+          createMany: {
+            data: images,
+          },
+        },
+      },
     })
 
     return NextResponse.json(product)
