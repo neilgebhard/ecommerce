@@ -73,7 +73,7 @@ const EditProduct = ({ product }: Props) => {
   }
 
   return (
-    <div className='px-4 py-8 mx-auto max-w-4xl'>
+    <>
       <h2 className='text-2xl font-bold tracking-tight'>Edit Product</h2>
       <p className='text-sm text-muted-foreground'>
         Edit this product of your store
@@ -199,7 +199,7 @@ const EditProduct = ({ product }: Props) => {
           </Button>
         </form>
       </Form>
-    </div>
+    </>
   )
 }
 

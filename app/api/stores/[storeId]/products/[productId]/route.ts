@@ -80,7 +80,60 @@ export async function PUT(
 
     return NextResponse.json(product)
   } catch (e) {
-    console.error('[PRODUCTS]', e)
+    console.error('[PRODUCTS_PUT]', e)
+    return new NextResponse('Internal error', { status: 500 })
+  }
+}
+
+export async function DELETE(
+  req: Request,
+  { params }: { params: { storeId: string; productId: string } }
+) {
+  try {
+    const { userId } = auth()
+    const { storeId, productId } = params
+
+    if (!userId) {
+      return new NextResponse('Unauthenticated', { status: 401 })
+    }
+    if (!storeId) {
+      return new NextResponse('Store id is required', { status: 400 })
+    }
+    if (!productId) {
+      return new NextResponse('Product id is required', { status: 400 })
+    }
+
+    const storeByUserId = await prismadb.store.findFirst({
+      where: {
+        id: storeId,
+        userId,
+      },
+    })
+
+    if (!storeByUserId) {
+      return new NextResponse('Unauthorized', { status: 401 })
+    }
+
+    await prismadb.product.update({
+      where: {
+        id: productId,
+      },
+      data: {
+        images: {
+          deleteMany: {},
+        },
+      },
+    })
+
+    const product = await prismadb.product.delete({
+      where: {
+        id: productId,
+      },
+    })
+
+    return NextResponse.json(product)
+  } catch (e) {
+    console.error('[PRODUCTS_DELETE]', e)
     return new NextResponse('Internal error', { status: 500 })
   }
 }

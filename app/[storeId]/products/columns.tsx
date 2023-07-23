@@ -1,7 +1,9 @@
 'use client'
 
+import { useState } from 'react'
 import { ColumnDef } from '@tanstack/react-table'
-import { ArrowUpDown, Edit, MoreHorizontal } from 'lucide-react'
+import { ArrowUpDown, Edit, MoreHorizontal, X } from 'lucide-react'
+import axios from 'axios'
 
 import { Button } from '@/components/ui/button'
 import {
@@ -13,6 +15,8 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { useParams, useRouter } from 'next/navigation'
+import toast from 'react-hot-toast'
+import ConfirmDeleteModal from '@/components/confirm-delete-modal'
 
 export type Product = {
   id: string
@@ -56,28 +60,56 @@ export const columns: ColumnDef<Product>[] = [
 ]
 
 const Dropdown = ({ data }: { data: Product }) => {
+  const [loading, setLoading] = useState(false)
+  const [openModal, setOpenModal] = useState(false)
+
   const router = useRouter()
   const params = useParams()
 
+  const handleDelete = async () => {
+    try {
+      setLoading(true)
+      await axios.delete(`/api/stores/${params.storeId}/products/${data.id}`)
+      toast.success('Product deleted.')
+      router.refresh()
+    } catch (e) {
+      console.error(e)
+      toast.error('Something went wrong.')
+    } finally {
+      setLoading(false)
+      setOpenModal(false)
+    }
+  }
+
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant='ghost' className='h-8 w-8 p-0'>
-          <span className='sr-only'>Open menu</span>
-          <MoreHorizontal className='h-4 w-4' />
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align='end'>
-        <DropdownMenuLabel>Actions</DropdownMenuLabel>
-        <DropdownMenuItem
-          onClick={() => router.push(`/${params.storeId}/products/${data.id}`)}
-        >
-          <Edit className='mr-2 h-4 w-4' /> Edit
-        </DropdownMenuItem>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem>View customer</DropdownMenuItem>
-        <DropdownMenuItem>View payment details</DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
+    <>
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button variant='ghost' className='h-8 w-8 p-0'>
+            <span className='sr-only'>Open menu</span>
+            <MoreHorizontal className='h-4 w-4' />
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align='end'>
+          <DropdownMenuLabel>Actions</DropdownMenuLabel>
+          <DropdownMenuItem
+            onClick={() =>
+              router.push(`/${params.storeId}/products/${data.id}`)
+            }
+          >
+            <Edit className='mr-2 h-4 w-4' /> Edit
+          </DropdownMenuItem>
+          <DropdownMenuItem onClick={() => setOpenModal(true)}>
+            <X className='mr-2 h-4 w-4' /> Delete
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+      <ConfirmDeleteModal
+        open={openModal}
+        onClose={() => setOpenModal(false)}
+        loading={loading}
+        onConfirm={handleDelete}
+      />
+    </>
   )
 }

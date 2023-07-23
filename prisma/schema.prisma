@@ -17,20 +17,22 @@ model Store {
   userId    String
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
+  orders    Order[]   @relation("StoreToOrder")
   Product   Product[] @relation("ProductToStore")
 }
 
 model Product {
-  id         String   @id @default(uuid())
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  id         String      @id @default(uuid())
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
   name       String
   price      Decimal
-  isFeatured Boolean  @default(false)
-  isArchived Boolean  @default(false)
+  isFeatured Boolean     @default(false)
+  isArchived Boolean     @default(false)
   storeId    String
-  store      Store    @relation("ProductToStore", fields: [storeId], references: [id])
-  images     Image[]  @relation("ProductToImage")
+  store      Store       @relation("ProductToStore", fields: [storeId], references: [id])
+  images     Image[]     @relation("ProductToImage")
+  orderItems OrderItem[]
 
   @@index([storeId])
 }
@@ -44,4 +46,32 @@ model Image {
   Product   Product  @relation("ProductToImage", fields: [productId], references: [id])
 
   @@index([productId])
+}
+
+model Order {
+  id         String      @id @default(uuid())
+  storeId    String
+  store      Store       @relation("StoreToOrder", fields: [storeId], references: [id])
+  orderItems OrderItem[]
+  phone      String      @default("")
+  address    String      @default("")
+  isPaid     Boolean     @default(false)
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+
+  @@index([storeId])
+}
+
+model OrderItem {
+  id        String   @id @default(uuid())
+  productId String
+  product   Product  @relation(fields: [productId], references: [id])
+  orderId   String
+  order     Order    @relation(fields: [orderId], references: [id])
+  quantity  Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([productId])
+  @@index([orderId])
 }
