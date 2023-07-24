@@ -30,6 +30,11 @@ const Navbar = ({ stores }: { stores: Store[] }) => {
       active: pathname === `/${params.storeId}/products`,
     },
     {
+      href: `/${params.storeId}/categories`,
+      label: 'Categories',
+      active: pathname === `/${params.storeId}/categories`,
+    },
+    {
       href: `/${params.storeId}/orders`,
       label: 'Orders',
       active: pathname === `/${params.storeId}/orders`,

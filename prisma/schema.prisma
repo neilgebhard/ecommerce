@@ -12,13 +12,14 @@ datasource db {
 }
 
 model Store {
-  id        String    @id @default(uuid())
+  id        String     @id @default(uuid())
   name      String
   userId    String
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  orders    Order[]   @relation("StoreToOrder")
-  Product   Product[] @relation("ProductToStore")
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  orders    Order[]    @relation("StoreToOrder")
+  product   Product[]  @relation("ProductToStore")
+  category  Category[] @relation("StoreToCategory")
 }
 
 model Product {
@@ -43,9 +44,20 @@ model Image {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   productId String
-  Product   Product  @relation("ProductToImage", fields: [productId], references: [id])
+  product   Product  @relation("ProductToImage", fields: [productId], references: [id])
 
   @@index([productId])
+}
+
+model Category {
+  id        String   @id @default(uuid())
+  storeId   String
+  store     Store    @relation("StoreToCategory", fields: [storeId], references: [id])
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([storeId])
 }
 
 model Order {

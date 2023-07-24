@@ -26,6 +26,8 @@ const Settings: React.FC<Props> = async ({ params }) => {
 
   return (
     <div className='px-4 py-8 mx-auto max-w-4xl'>
+      <h2 className='text-2xl font-bold tracking-tight'>Settings</h2>
+      <p className='text-sm text-muted-foreground'>Manage store preferences</p>
       <Client store={store} />
     </div>
   )

@@ -75,8 +75,6 @@ const Client: React.FC<Props> = ({ store }) => {
 
   return (
     <>
-      <h2 className='text-2xl font-bold tracking-tight'>Settings</h2>
-      <p className='text-sm text-muted-foreground'>Manage store preferences</p>
       <Separator className='my-8' />
       <Form {...form}>
         <form
@@ -108,7 +106,7 @@ const Client: React.FC<Props> = ({ store }) => {
       <Separator className='my-8' />
       <ApiAlert
         title='NEXT_PUBLIC_API_URL'
-        description={`${window.location.origin}/api/${store.id}`}
+        description={`${window?.location?.origin}/api/${store.id}`}
         type='public'
       />
       <Separator className='my-8' />
