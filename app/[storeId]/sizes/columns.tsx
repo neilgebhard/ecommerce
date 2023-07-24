@@ -16,13 +16,14 @@ import { useParams, useRouter } from 'next/navigation'
 import { useState } from 'react'
 import ConfirmDeleteModal from '@/components/confirm-delete-modal'
 
-export type CategoryColumn = {
+export type SizeColumn = {
   id: string
   name: string
+  value: string
   createdAt: string
 }
 
-export const columns: ColumnDef<CategoryColumn>[] = [
+export const columns: ColumnDef<SizeColumn>[] = [
   {
     accessorKey: 'createdAt',
     header: 'Date',
@@ -42,12 +43,16 @@ export const columns: ColumnDef<CategoryColumn>[] = [
     },
   },
   {
+    accessorKey: 'value',
+    header: 'Value',
+  },
+  {
     id: 'actions',
     cell: ({ row }) => <Dropdown data={row.original} />,
   },
 ]
 
-const Dropdown = ({ data }: { data: CategoryColumn }) => {
+const Dropdown = ({ data }: { data: SizeColumn }) => {
   const [loading, setLoading] = useState(false)
   const [openModal, setOpenModal] = useState(false)
 
@@ -57,8 +62,8 @@ const Dropdown = ({ data }: { data: CategoryColumn }) => {
   const handleDelete = async () => {
     try {
       setLoading(true)
-      await axios.delete(`/api/stores/${params.storeId}/categories/${data.id}`)
-      toast.success('Category deleted.')
+      await axios.delete(`/api/stores/${params.storeId}/sizes/${data.id}`)
+      toast.success('Size deleted.')
       router.refresh()
     } catch (e) {
       console.error(e)
@@ -81,9 +86,7 @@ const Dropdown = ({ data }: { data: CategoryColumn }) => {
         <DropdownMenuContent align='end'>
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
           <DropdownMenuItem
-            onClick={() =>
-              router.push(`/${params.storeId}/categories/${data.id}`)
-            }
+            onClick={() => router.push(`/${params.storeId}/sizes/${data.id}`)}
           >
             <Edit className='mr-2 h-4 w-4' /> Edit
           </DropdownMenuItem>

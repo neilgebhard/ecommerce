@@ -20,6 +20,7 @@ model Store {
   orders    Order[]    @relation("StoreToOrder")
   product   Product[]  @relation("ProductToStore")
   category  Category[] @relation("StoreToCategory")
+  sizes     Size[]     @relation("StoreToSize")
 }
 
 model Product {
@@ -54,6 +55,18 @@ model Category {
   storeId   String
   store     Store    @relation("StoreToCategory", fields: [storeId], references: [id])
   name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([storeId])
+}
+
+model Size {
+  id        String   @id @default(uuid())
+  storeId   String
+  store     Store    @relation("StoreToSize", fields: [storeId], references: [id])
+  name      String
+  value     String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
