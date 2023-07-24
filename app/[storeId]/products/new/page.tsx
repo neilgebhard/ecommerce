@@ -31,7 +31,7 @@ const formSchema = z.object({
   images: z.object({ url: z.string() }).array(),
 })
 
-const NewProduct = () => {
+const Page = () => {
   const params = useParams()
   const [loading, setLoading] = useState(false)
   const router = useRouter()
@@ -193,4 +193,4 @@ const NewProduct = () => {
   )
 }
 
-export default NewProduct
+export default Page

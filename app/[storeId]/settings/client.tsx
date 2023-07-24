@@ -23,7 +23,7 @@ import toast from 'react-hot-toast'
 import axios from 'axios'
 import { useRouter } from 'next/navigation'
 import ConfirmDeleteModal from '@/components/confirm-delete-modal'
-import ApiAlert from './api-alert'
+import ApiAlert from '@/components/api-alert'
 
 const formSchema = z.object({
   name: z.string().min(2).max(50),
@@ -33,7 +33,7 @@ type Props = {
   store: Store
 }
 
-const SettingsForm: React.FC<Props> = ({ store }) => {
+const Client: React.FC<Props> = ({ store }) => {
   const [loading, setLoading] = useState(false)
   const [openModal, setOpenModal] = useState(false)
 
@@ -130,4 +130,4 @@ const SettingsForm: React.FC<Props> = ({ store }) => {
   )
 }
 
-export default SettingsForm
+export default Client

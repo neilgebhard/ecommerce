@@ -33,12 +33,14 @@ const formSchema = z.object({
 })
 
 interface Props {
-  product: Product & {
-    images: Image[]
-  }
+  data:
+    | (Product & {
+        images: Image[]
+      })
+    | null
 }
 
-const EditProduct = ({ product }: Props) => {
+const Client = ({ data }: Props) => {
   const params = useParams()
   const [loading, setLoading] = useState(false)
   const router = useRouter()
@@ -46,11 +48,11 @@ const EditProduct = ({ product }: Props) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: product.name,
-      price: Number(product.price),
-      isFeatured: product.isFeatured,
-      isArchived: product.isArchived,
-      images: product.images,
+      name: data?.name,
+      price: Number(data?.price),
+      isFeatured: data?.isFeatured,
+      isArchived: data?.isArchived,
+      images: data?.images,
     },
   })
 
@@ -58,7 +60,7 @@ const EditProduct = ({ product }: Props) => {
     try {
       setLoading(true)
       await axios.put(
-        `/api/stores/${params.storeId}/products/${product.id}`,
+        `/api/stores/${params.storeId}/products/${data.id}`,
         values
       )
       router.refresh()
@@ -203,4 +205,4 @@ const EditProduct = ({ product }: Props) => {
   )
 }
 
-export default EditProduct
+export default Client

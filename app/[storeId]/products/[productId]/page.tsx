@@ -1,5 +1,5 @@
 import prismadb from '@/lib/prismadb'
-import EditProduct from './client'
+import Client from './client'
 
 type Props = {
   params: { storeId: string; productId: string }
@@ -17,7 +17,7 @@ const Page: React.FC<Props> = async ({ params }) => {
 
   return (
     <div className='px-4 py-8 mx-auto max-w-4xl'>
-      <EditProduct product={JSON.parse(JSON.stringify(product))} />
+      <Client data={product} />
     </div>
   )
 }

@@ -11,14 +11,13 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { useParams, useRouter } from 'next/navigation'
 import toast from 'react-hot-toast'
 import ConfirmDeleteModal from '@/components/confirm-delete-modal'
 
-export type Product = {
+export type ProductColumn = {
   id: string
   name: string
   price: string
@@ -26,7 +25,7 @@ export type Product = {
   isArchived: string
 }
 
-export const columns: ColumnDef<Product>[] = [
+export const columns: ColumnDef<ProductColumn>[] = [
   {
     accessorKey: 'name',
     header: ({ column }) => {
@@ -59,7 +58,7 @@ export const columns: ColumnDef<Product>[] = [
   },
 ]
 
-const Dropdown = ({ data }: { data: Product }) => {
+const Dropdown = ({ data }: { data: ProductColumn }) => {
   const [loading, setLoading] = useState(false)
   const [openModal, setOpenModal] = useState(false)
 

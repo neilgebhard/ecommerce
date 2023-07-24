@@ -1,5 +1,6 @@
 import prismadb from '@/lib/prismadb'
-import ProductsClient from './client'
+import Client from './client'
+import { formatToUSD } from '@/lib/utils'
 
 const Products = async ({ params }: { params: { storeId: string } }) => {
   const products = await prismadb.product.findMany({
@@ -8,9 +9,19 @@ const Products = async ({ params }: { params: { storeId: string } }) => {
     },
   })
 
+  const data = products.map((product) => {
+    return {
+      id: product.id,
+      name: product.name,
+      price: formatToUSD.format(Number(product.price)),
+      isFeatured: product.isFeatured ? 'Yes' : 'No',
+      isArchived: product.isArchived ? 'Yes' : 'No',
+    }
+  })
+
   return (
     <div className='px-4 py-8 mx-auto max-w-4xl'>
-      <ProductsClient products={JSON.parse(JSON.stringify(products))} />
+      <Client data={data} />
     </div>
   )
 }

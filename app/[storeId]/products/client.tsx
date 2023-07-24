@@ -2,27 +2,15 @@
 
 import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
-import { formatToUSD } from '@/lib/utils'
-import { Product } from '@prisma/client'
 import { Plus } from 'lucide-react'
 import { useParams, useRouter } from 'next/navigation'
 
-import { columns } from './columns'
+import { ProductColumn, columns } from './columns'
 import { DataTable } from './data-table'
 
-const ProductsClient = ({ products }: { products: Product[] }) => {
+const ProductsClient = ({ data }: { data: ProductColumn[] }) => {
   const router = useRouter()
   const params = useParams()
-
-  const data = products.map((product) => {
-    return {
-      id: product.id,
-      name: product.name,
-      price: formatToUSD.format(Number(product.price)),
-      isFeatured: product.isFeatured ? 'Yes' : 'No',
-      isArchived: product.isArchived ? 'Yes' : 'No',
-    }
-  })
 
   return (
     <>

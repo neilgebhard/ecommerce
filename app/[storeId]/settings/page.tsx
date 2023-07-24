@@ -2,7 +2,7 @@ import { auth } from '@clerk/nextjs'
 import { redirect } from 'next/navigation'
 
 import prismadb from '@/lib/prismadb'
-import SettingsForm from '@/components/settings-form'
+import Client from './client'
 
 type Props = {
   params: {
@@ -26,7 +26,7 @@ const Settings: React.FC<Props> = async ({ params }) => {
 
   return (
     <div className='px-4 py-8 mx-auto max-w-4xl'>
-      <SettingsForm store={store} />
+      <Client store={store} />
     </div>
   )
 }
