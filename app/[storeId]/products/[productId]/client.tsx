@@ -60,7 +60,7 @@ const Client = ({ data }: Props) => {
     try {
       setLoading(true)
       await axios.put(
-        `/api/stores/${params.storeId}/products/${data.id}`,
+        `/api/stores/${params.storeId}/products/${data?.id}`,
         values
       )
       router.refresh()
