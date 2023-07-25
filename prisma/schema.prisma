@@ -38,9 +38,12 @@ model Product {
   orderItems OrderItem[]
   categoryId String
   category   Category    @relation("CategoryToProduct", fields: [categoryId], references: [id])
+  sizeId     String
+  size       Size        @relation("SizeToProduct", fields: [sizeId], references: [id])
 
   @@index([storeId])
   @@index([categoryId])
+  @@index([sizeId])
 }
 
 model Image {
@@ -59,7 +62,7 @@ model Category {
   storeId   String
   store     Store     @relation("StoreToCategory", fields: [storeId], references: [id])
   name      String
-  product   Product[] @relation("CategoryToProduct")
+  products  Product[] @relation("CategoryToProduct")
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
 
@@ -67,13 +70,14 @@ model Category {
 }
 
 model Size {
-  id        String   @id @default(uuid())
+  id        String    @id @default(uuid())
   storeId   String
-  store     Store    @relation("StoreToSize", fields: [storeId], references: [id])
+  store     Store     @relation("StoreToSize", fields: [storeId], references: [id])
   name      String
   value     String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  products  Product[] @relation("SizeToProduct")
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
 
   @@index([storeId])
 }

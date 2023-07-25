@@ -24,6 +24,7 @@ export type ProductColumn = {
   isFeatured: string
   isArchived: string
   category: string
+  size: string
 }
 
 export const columns: ColumnDef<ProductColumn>[] = [
@@ -48,6 +49,10 @@ export const columns: ColumnDef<ProductColumn>[] = [
   {
     accessorKey: 'category',
     header: 'Category',
+  },
+  {
+    accessorKey: 'size',
+    header: 'Size',
   },
   {
     accessorKey: 'isFeatured',

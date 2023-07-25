@@ -11,7 +11,8 @@ export async function PUT(
     const { storeId, productId } = params
 
     const body = await req.json()
-    const { name, price, isFeatured, isArchived, images } = body
+    const { name, price, isFeatured, isArchived, images, categoryId, sizeId } =
+      body
 
     if (!userId) {
       return new NextResponse('Unauthenticated', { status: 401 })
@@ -27,6 +28,12 @@ export async function PUT(
     }
     if (!price) {
       return new NextResponse('Price is required', { status: 400 })
+    }
+    if (!categoryId) {
+      return new NextResponse('Category id is required', { status: 400 })
+    }
+    if (!sizeId) {
+      return new NextResponse('Size id is required', { status: 400 })
     }
     if (isFeatured === undefined) {
       return new NextResponse('isFeatured is required', { status: 400 })
@@ -55,6 +62,8 @@ export async function PUT(
         price,
         isFeatured,
         isArchived,
+        categoryId,
+        sizeId,
         images: {
           deleteMany: {},
         },
@@ -66,10 +75,6 @@ export async function PUT(
         id: productId,
       },
       data: {
-        name,
-        price,
-        isFeatured,
-        isArchived,
         images: {
           createMany: {
             data: images,

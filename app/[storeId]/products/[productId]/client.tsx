@@ -31,7 +31,7 @@ import axios from 'axios'
 import toast from 'react-hot-toast'
 import { Edit } from 'lucide-react'
 import ImageUpload from '@/components/image-upload'
-import { Category, Image, Product } from '@prisma/client'
+import { Category, Image, Product, Size } from '@prisma/client'
 
 const formSchema = z.object({
   name: z.string().min(1),
@@ -40,6 +40,7 @@ const formSchema = z.object({
   isArchived: z.boolean(),
   images: z.object({ url: z.string() }).array(),
   categoryId: z.string().min(1),
+  sizeId: z.string().min(1),
 })
 
 interface Props {
@@ -49,12 +50,14 @@ interface Props {
       })
     | null
   categories: Category[]
+  sizes: Size[]
 }
 
-const Client = ({ product, categories }: Props) => {
+const Client = ({ product, categories, sizes }: Props) => {
   const params = useParams()
-  const [loading, setLoading] = useState(false)
   const router = useRouter()
+
+  const [loading, setLoading] = useState(false)
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -65,6 +68,7 @@ const Client = ({ product, categories }: Props) => {
       isArchived: product?.isArchived,
       images: product?.images,
       categoryId: product?.categoryId,
+      sizeId: product?.sizeId,
     },
   })
 
@@ -193,6 +197,38 @@ const Client = ({ product, categories }: Props) => {
                 <FormDescription>
                   The category which your product belongs to.
                 </FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name='sizeId'
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Category</FormLabel>
+                <Select
+                  disabled={loading}
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                >
+                  <FormControl>
+                    <SelectTrigger className='w-[180px]'>
+                      <SelectValue placeholder='Select a size' />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    <SelectGroup>
+                      <SelectLabel>Sizes</SelectLabel>
+                      {sizes.map((size) => (
+                        <SelectItem key={size.id} value={size.id}>
+                          {size.name}
+                        </SelectItem>
+                      ))}
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
+                <FormDescription>The size of your product</FormDescription>
                 <FormMessage />
               </FormItem>
             )}

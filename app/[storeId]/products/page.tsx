@@ -9,6 +9,7 @@ const Products = async ({ params }: { params: { storeId: string } }) => {
     },
     include: {
       category: true,
+      size: true,
     },
   })
 
@@ -20,6 +21,7 @@ const Products = async ({ params }: { params: { storeId: string } }) => {
       isFeatured: product.isFeatured ? 'Yes' : 'No',
       isArchived: product.isArchived ? 'Yes' : 'No',
       category: product.category.name,
+      size: product.size.name,
     }
   })
 
