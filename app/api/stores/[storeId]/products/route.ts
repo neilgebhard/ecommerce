@@ -11,7 +11,7 @@ export async function POST(
     const { storeId } = params
 
     const body = await req.json()
-    const { name, price, isFeatured, isArchived, images } = body
+    const { name, price, categoryId, isFeatured, isArchived, images } = body
 
     if (!userId) {
       return new NextResponse('Unauthorized', { status: 401 })
@@ -24,6 +24,9 @@ export async function POST(
     }
     if (!price) {
       return new NextResponse('Price is required', { status: 400 })
+    }
+    if (!categoryId) {
+      return new NextResponse('Category id required', { status: 400 })
     }
     if (isFeatured === undefined) {
       return new NextResponse('isFeatured is required', { status: 400 })
@@ -38,6 +41,7 @@ export async function POST(
         price,
         isFeatured,
         isArchived,
+        categoryId,
         storeId: params.storeId,
         images: {
           createMany: {

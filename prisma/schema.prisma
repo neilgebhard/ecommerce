@@ -36,8 +36,11 @@ model Product {
   store      Store       @relation("ProductToStore", fields: [storeId], references: [id])
   images     Image[]     @relation("ProductToImage")
   orderItems OrderItem[]
+  categoryId String
+  category   Category    @relation("CategoryToProduct", fields: [categoryId], references: [id])
 
   @@index([storeId])
+  @@index([categoryId])
 }
 
 model Image {
@@ -52,12 +55,13 @@ model Image {
 }
 
 model Category {
-  id        String   @id @default(uuid())
+  id        String    @id @default(uuid())
   storeId   String
-  store     Store    @relation("StoreToCategory", fields: [storeId], references: [id])
+  store     Store     @relation("StoreToCategory", fields: [storeId], references: [id])
   name      String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  product   Product[] @relation("CategoryToProduct")
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
 
   @@index([storeId])
 }

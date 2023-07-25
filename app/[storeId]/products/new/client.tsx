@@ -29,9 +29,9 @@ import { useState } from 'react'
 import { Checkbox } from '@/components/ui/checkbox'
 import axios from 'axios'
 import toast from 'react-hot-toast'
-import { Edit } from 'lucide-react'
+import { Plus } from 'lucide-react'
 import ImageUpload from '@/components/image-upload'
-import { Category, Image, Product } from '@prisma/client'
+import { Category } from '@prisma/client'
 
 const formSchema = z.object({
   name: z.string().min(1),
@@ -42,42 +42,36 @@ const formSchema = z.object({
   categoryId: z.string().min(1),
 })
 
-interface Props {
-  product:
-    | (Product & {
-        images: Image[]
-      })
-    | null
+type Props = {
   categories: Category[]
 }
 
-const Client = ({ product, categories }: Props) => {
+const Client: React.FC<Props> = ({ categories }) => {
   const params = useParams()
-  const [loading, setLoading] = useState(false)
   const router = useRouter()
+
+  const [loading, setLoading] = useState(false)
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: product?.name,
-      price: Number(product?.price),
-      isFeatured: product?.isFeatured,
-      isArchived: product?.isArchived,
-      images: product?.images,
-      categoryId: product?.categoryId,
+      name: '',
+      price: 0,
+      isFeatured: false,
+      isArchived: false,
+      categoryId: '',
+      images: [],
     },
   })
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    console.log(values)
     try {
       setLoading(true)
-      await axios.put(
-        `/api/stores/${params.storeId}/products/${product?.id}`,
-        values
-      )
+      await axios.post(`/api/stores/${params.storeId}/products`, values)
       router.refresh()
       router.push(`/${params.storeId}/products`)
-      toast.success('Product updated')
+      toast.success('Product created')
     } catch (e) {
       console.error(e)
       toast.error('Something went wrong')
@@ -87,10 +81,10 @@ const Client = ({ product, categories }: Props) => {
   }
 
   return (
-    <>
-      <h2 className='text-2xl font-bold tracking-tight'>Edit Product</h2>
+    <div className='px-4 py-8 mx-auto max-w-4xl'>
+      <h2 className='text-2xl font-bold tracking-tight'>Create Product</h2>
       <p className='text-sm text-muted-foreground'>
-        Edit this product of your store
+        Add a new product to your store
       </p>
       <Separator className='my-8' />
       <Form {...form}>
@@ -169,11 +163,7 @@ const Client = ({ product, categories }: Props) => {
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Category</FormLabel>
-                <Select
-                  disabled={loading}
-                  onValueChange={field.onChange}
-                  defaultValue={field.value}
-                >
+                <Select disabled={loading} onValueChange={field.onChange}>
                   <FormControl>
                     <SelectTrigger className='w-[180px]'>
                       <SelectValue placeholder='Select a category' />
@@ -243,11 +233,11 @@ const Client = ({ product, categories }: Props) => {
             )}
           />
           <Button type='submit' disabled={loading}>
-            <Edit className='mr-2 h-4 w-4' /> Edit product
+            <Plus className='mr-2 h-4 w-4' /> Create product
           </Button>
         </form>
       </Form>
-    </>
+    </div>
   )
 }
 

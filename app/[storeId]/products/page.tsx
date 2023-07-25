@@ -7,6 +7,9 @@ const Products = async ({ params }: { params: { storeId: string } }) => {
     where: {
       storeId: params.storeId,
     },
+    include: {
+      category: true,
+    },
   })
 
   const data = products.map((product) => {
@@ -16,6 +19,7 @@ const Products = async ({ params }: { params: { storeId: string } }) => {
       price: formatToUSD.format(Number(product.price)),
       isFeatured: product.isFeatured ? 'Yes' : 'No',
       isArchived: product.isArchived ? 'Yes' : 'No',
+      category: product.category.name,
     }
   })
 
