@@ -27,8 +27,9 @@ const formSchema = z.object({
 
 const Page = () => {
   const params = useParams()
-  const [loading, setLoading] = useState(false)
   const router = useRouter()
+
+  const [loading, setLoading] = useState(false)
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),

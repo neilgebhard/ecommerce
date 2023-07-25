@@ -42,10 +42,10 @@ const Page = () => {
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       setLoading(true)
-      await axios.post(`/api/stores/${params.storeId}/sizes`, values)
+      await axios.post(`/api/stores/${params.storeId}/colors`, values)
       router.refresh()
-      router.push(`/${params.storeId}/sizes`)
-      toast.success('Size created')
+      router.push(`/${params.storeId}/colors`)
+      toast.success('Color created')
     } catch (e) {
       console.error(e)
       toast.error('Something went wrong')
@@ -56,9 +56,9 @@ const Page = () => {
 
   return (
     <div className='px-4 py-8 mx-auto max-w-4xl'>
-      <h2 className='text-2xl font-bold tracking-tight'>Create Size</h2>
+      <h2 className='text-2xl font-bold tracking-tight'>Create Color</h2>
       <p className='text-sm text-muted-foreground'>
-        Add a new size for a product of your store
+        Add a new color for a product of your store
       </p>
       <Separator className='my-8' />
       <Form {...form}>
@@ -75,12 +75,13 @@ const Page = () => {
                 <FormControl>
                   <Input
                     disabled={loading}
-                    placeholder='Size name'
+                    placeholder='Color name'
                     {...field}
                   />
                 </FormControl>
                 <FormDescription>
-                  Each product will belong to a size (e.g. S, M, L, XL, etc)
+                  What is the color of your product? (e.g. red, green, blue,
+                  etc.)
                 </FormDescription>
                 <FormMessage />
               </FormItem>
@@ -93,21 +94,28 @@ const Page = () => {
               <FormItem>
                 <FormLabel>Value</FormLabel>
                 <FormControl>
-                  <Input
-                    disabled={loading}
-                    placeholder='Size value'
-                    {...field}
-                  />
+                  <div className='flex items-center gap-2'>
+                    <Input
+                      disabled={loading}
+                      placeholder='Color value'
+                      {...field}
+                    />
+                    <div
+                      className='w-8 h-8 rounded-full border'
+                      style={{ backgroundColor: field.value }}
+                    />
+                  </div>
                 </FormControl>
                 <FormDescription>
-                  Each product will belong to a size (e.g. Medium, Large, etc.)
+                  Use a hexadecimal value (e.g. #FFF for white, #0000FF for
+                  blue, etc)
                 </FormDescription>
                 <FormMessage />
               </FormItem>
             )}
           />
           <Button type='submit' disabled={loading}>
-            <Plus className='mr-2 h-4 w-4' /> Create size
+            <Plus className='mr-2 h-4 w-4' /> Create color
           </Button>
         </form>
       </Form>
