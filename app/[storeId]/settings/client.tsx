@@ -106,7 +106,7 @@ const Client: React.FC<Props> = ({ store }) => {
       <Separator className='my-8' />
       <ApiAlert
         title='NEXT_PUBLIC_API_URL'
-        description={`${window?.location?.origin}/api/${store.id}`}
+        description={`${window?.location?.origin}/api/stores/${store.id}`}
         type='public'
       />
       <Separator className='my-8' />
