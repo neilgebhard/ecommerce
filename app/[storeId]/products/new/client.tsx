@@ -31,7 +31,7 @@ import axios from 'axios'
 import toast from 'react-hot-toast'
 import { Plus } from 'lucide-react'
 import ImageUpload from '@/components/image-upload'
-import { Category, Size } from '@prisma/client'
+import { Category, Color, Size } from '@prisma/client'
 
 const formSchema = z.object({
   name: z.string().min(1),
@@ -41,14 +41,16 @@ const formSchema = z.object({
   images: z.object({ url: z.string() }).array(),
   categoryId: z.string().min(1),
   sizeId: z.string().min(1),
+  colorId: z.string().min(1),
 })
 
 type Props = {
   categories: Category[]
   sizes: Size[]
+  colors: Color[]
 }
 
-const Client: React.FC<Props> = ({ categories, sizes }) => {
+const Client: React.FC<Props> = ({ categories, sizes, colors }) => {
   const params = useParams()
   const router = useRouter()
 
@@ -63,6 +65,7 @@ const Client: React.FC<Props> = ({ categories, sizes }) => {
       isArchived: false,
       categoryId: '',
       sizeId: '',
+      colorId: '',
       images: [],
     },
   })
@@ -214,6 +217,34 @@ const Client: React.FC<Props> = ({ categories, sizes }) => {
                   </SelectContent>
                 </Select>
                 <FormDescription>The size of your product</FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name='colorId'
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Colors</FormLabel>
+                <Select disabled={loading} onValueChange={field.onChange}>
+                  <FormControl>
+                    <SelectTrigger className='w-[180px]'>
+                      <SelectValue placeholder='Select a color' />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    <SelectGroup>
+                      <SelectLabel>Colors</SelectLabel>
+                      {colors.map((color) => (
+                        <SelectItem key={color.id} value={color.id}>
+                          {color.name}
+                        </SelectItem>
+                      ))}
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
+                <FormDescription>The color of your product</FormDescription>
                 <FormMessage />
               </FormItem>
             )}

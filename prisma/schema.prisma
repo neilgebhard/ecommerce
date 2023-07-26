@@ -33,17 +33,20 @@ model Product {
   isFeatured Boolean     @default(false)
   isArchived Boolean     @default(false)
   storeId    String
-  store      Store       @relation("ProductToStore", fields: [storeId], references: [id])
+  store      Store       @relation("ProductToStore", fields: [storeId], references: [id], onDelete: Cascade)
   images     Image[]     @relation("ProductToImage")
   orderItems OrderItem[]
   categoryId String
   category   Category    @relation("CategoryToProduct", fields: [categoryId], references: [id])
   sizeId     String
   size       Size        @relation("SizeToProduct", fields: [sizeId], references: [id])
+  colorId    String
+  color      Color       @relation("ColorToProduct", fields: [colorId], references: [id])
 
   @@index([storeId])
   @@index([categoryId])
   @@index([sizeId])
+  @@index([colorId])
 }
 
 model Image {
@@ -60,7 +63,7 @@ model Image {
 model Category {
   id        String    @id @default(uuid())
   storeId   String
-  store     Store     @relation("StoreToCategory", fields: [storeId], references: [id])
+  store     Store     @relation("StoreToCategory", fields: [storeId], references: [id], onDelete: Cascade)
   name      String
   products  Product[] @relation("CategoryToProduct")
   createdAt DateTime  @default(now())
@@ -72,7 +75,7 @@ model Category {
 model Size {
   id        String    @id @default(uuid())
   storeId   String
-  store     Store     @relation("StoreToSize", fields: [storeId], references: [id])
+  store     Store     @relation("StoreToSize", fields: [storeId], references: [id], onDelete: Cascade)
   name      String
   value     String
   products  Product[] @relation("SizeToProduct")
@@ -83,13 +86,14 @@ model Size {
 }
 
 model Color {
-  id        String   @id @default(uuid())
+  id        String    @id @default(uuid())
   storeId   String
-  store     Store    @relation("StoreToColor", fields: [storeId], references: [id])
+  store     Store     @relation("StoreToColor", fields: [storeId], references: [id], onDelete: Cascade)
   name      String
   value     String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  products  Product[] @relation("ColorToProduct")
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
 
   @@index([storeId])
 }
@@ -97,7 +101,7 @@ model Color {
 model Order {
   id         String      @id @default(uuid())
   storeId    String
-  store      Store       @relation("StoreToOrder", fields: [storeId], references: [id])
+  store      Store       @relation("StoreToOrder", fields: [storeId], references: [id], onDelete: Cascade)
   orderItems OrderItem[]
   phone      String      @default("")
   address    String      @default("")

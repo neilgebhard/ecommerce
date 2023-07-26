@@ -11,8 +11,16 @@ export async function POST(
     const { storeId } = params
 
     const body = await req.json()
-    const { name, price, categoryId, isFeatured, isArchived, images, sizeId } =
-      body
+    const {
+      name,
+      price,
+      categoryId,
+      isFeatured,
+      isArchived,
+      images,
+      sizeId,
+      colorId,
+    } = body
 
     if (!userId) {
       return new NextResponse('Unauthorized', { status: 401 })
@@ -32,6 +40,9 @@ export async function POST(
     if (!sizeId) {
       return new NextResponse('Size id required', { status: 400 })
     }
+    if (!sizeId) {
+      return new NextResponse('Color id required', { status: 400 })
+    }
     if (isFeatured === undefined) {
       return new NextResponse('isFeatured is required', { status: 400 })
     }
@@ -43,11 +54,12 @@ export async function POST(
       data: {
         name,
         price,
+        storeId,
         isFeatured,
         isArchived,
         categoryId,
         sizeId,
-        storeId,
+        colorId,
         images: {
           createMany: {
             data: images,

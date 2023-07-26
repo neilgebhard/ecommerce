@@ -6,21 +6,25 @@ type Props = {
 }
 
 const Page: React.FC<Props> = async ({ params }) => {
-  const [categories, sizes] = await Promise.all([
+  const [categories, sizes, colors] = await Promise.all([
     prismadb.category.findMany({
       where: {
         storeId: params.storeId,
       },
     }),
-
     prismadb.size.findMany({
+      where: {
+        storeId: params.storeId,
+      },
+    }),
+    prismadb.color.findMany({
       where: {
         storeId: params.storeId,
       },
     }),
   ])
 
-  return <Client categories={categories} sizes={sizes} />
+  return <Client categories={categories} sizes={sizes} colors={colors} />
 }
 
 export default Page

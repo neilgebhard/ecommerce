@@ -6,7 +6,7 @@ type Props = {
 }
 
 const Page: React.FC<Props> = async ({ params }) => {
-  const [product, categories, sizes] = await Promise.all([
+  const [product, categories, sizes, colors] = await Promise.all([
     prismadb.product.findUnique({
       where: {
         id: params.productId,
@@ -25,11 +25,21 @@ const Page: React.FC<Props> = async ({ params }) => {
         storeId: params.storeId,
       },
     }),
+    prismadb.color.findMany({
+      where: {
+        storeId: params.storeId,
+      },
+    }),
   ])
 
   return (
     <div className='px-4 py-8 mx-auto max-w-4xl'>
-      <Client product={product} categories={categories} sizes={sizes} />
+      <Client
+        product={product}
+        categories={categories}
+        sizes={sizes}
+        colors={colors}
+      />
     </div>
   )
 }

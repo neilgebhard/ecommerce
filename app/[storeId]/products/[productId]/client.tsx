@@ -31,7 +31,7 @@ import axios from 'axios'
 import toast from 'react-hot-toast'
 import { Edit } from 'lucide-react'
 import ImageUpload from '@/components/image-upload'
-import { Category, Image, Product, Size } from '@prisma/client'
+import { Category, Color, Image, Product, Size } from '@prisma/client'
 
 const formSchema = z.object({
   name: z.string().min(1),
@@ -41,6 +41,7 @@ const formSchema = z.object({
   images: z.object({ url: z.string() }).array(),
   categoryId: z.string().min(1),
   sizeId: z.string().min(1),
+  colorId: z.string().min(1),
 })
 
 interface Props {
@@ -51,9 +52,10 @@ interface Props {
     | null
   categories: Category[]
   sizes: Size[]
+  colors: Color[]
 }
 
-const Client = ({ product, categories, sizes }: Props) => {
+const Client = ({ product, categories, sizes, colors }: Props) => {
   const params = useParams()
   const router = useRouter()
 
@@ -69,6 +71,7 @@ const Client = ({ product, categories, sizes }: Props) => {
       images: product?.images,
       categoryId: product?.categoryId,
       sizeId: product?.sizeId,
+      colorId: product?.colorId,
     },
   })
 
@@ -206,7 +209,7 @@ const Client = ({ product, categories, sizes }: Props) => {
             name='sizeId'
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Category</FormLabel>
+                <FormLabel>Size</FormLabel>
                 <Select
                   disabled={loading}
                   onValueChange={field.onChange}
@@ -229,6 +232,38 @@ const Client = ({ product, categories, sizes }: Props) => {
                   </SelectContent>
                 </Select>
                 <FormDescription>The size of your product</FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name='colorId'
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Color</FormLabel>
+                <Select
+                  disabled={loading}
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                >
+                  <FormControl>
+                    <SelectTrigger className='w-[180px]'>
+                      <SelectValue placeholder='Select a color' />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    <SelectGroup>
+                      <SelectLabel>Colors</SelectLabel>
+                      {colors.map((color) => (
+                        <SelectItem key={color.id} value={color.id}>
+                          {color.name}
+                        </SelectItem>
+                      ))}
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
+                <FormDescription>The color of your product</FormDescription>
                 <FormMessage />
               </FormItem>
             )}
