@@ -2,6 +2,46 @@ import prismadb from '@/lib/prismadb'
 import { auth } from '@clerk/nextjs'
 import { NextResponse } from 'next/server'
 
+export async function GET(
+  req: Request,
+  {
+    params,
+  }: {
+    params: {
+      storeId: string
+    }
+  }
+) {
+  try {
+    const { searchParams } = new URL(req.url)
+    const categoryId = searchParams.get('categoryId') || undefined
+    const sizeId = searchParams.get('sizeId') || undefined
+    const colorId = searchParams.get('colorId') || undefined
+    const isFeatured = searchParams.get('isFeatured') ? true : undefined
+
+    const products = await prismadb.product.findMany({
+      where: {
+        storeId: params.storeId,
+        categoryId,
+        sizeId,
+        colorId,
+        isFeatured,
+        isArchived: false,
+      },
+      include: {
+        images: true,
+        category: true,
+        size: true,
+        color: true,
+      },
+    })
+    return NextResponse.json(products)
+  } catch (e) {
+    console.error('[PRODUCTS_GET]', e)
+    return new NextResponse('Internal error', { status: 500 })
+  }
+}
+
 export async function POST(
   req: Request,
   { params }: { params: { storeId: string } }

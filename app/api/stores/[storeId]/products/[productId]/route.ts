@@ -2,6 +2,35 @@ import prismadb from '@/lib/prismadb'
 import { auth } from '@clerk/nextjs'
 import { NextResponse } from 'next/server'
 
+export async function GET(
+  req: Request,
+  { params }: { params: { productId: string } }
+) {
+  try {
+    const { productId } = params
+
+    if (!productId) {
+      return new NextResponse('Product id is required', { status: 400 })
+    }
+
+    const product = await prismadb.product.findUnique({
+      where: {
+        id: productId,
+      },
+      include: {
+        images: true,
+        category: true,
+        size: true,
+        color: true,
+      },
+    })
+    return NextResponse.json(product)
+  } catch (e) {
+    console.error('[PRODUCTS_GET]', e)
+    return new NextResponse('Internal error', { status: 500 })
+  }
+}
+
 export async function PUT(
   req: Request,
   { params }: { params: { storeId: string; productId: string } }

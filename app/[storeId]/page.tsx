@@ -1,20 +1,22 @@
 import prismadb from '@/lib/prismadb'
+import Client from './client'
 
 type Props = {
   params: { storeId: string }
 }
 
 const Page: React.FC<Props> = async ({ params }) => {
+  const { storeId } = params
+
   const store = await prismadb.store.findUnique({
     where: {
-      id: params.storeId,
+      id: storeId,
     },
   })
 
   return (
-    <div>
-      <h1>This will be the dashboard.</h1>
-      <h2>name: {store?.name}</h2>
+    <div className='px-4 py-8 mx-auto max-w-4xl'>
+      <Client />
     </div>
   )
 }

@@ -18,7 +18,6 @@ const Page = async ({ params }: { params: { storeId: string } }) => {
 
   const formattedOrders = orders.map((order) => {
     return {
-      id: order.id,
       phone: order.phone,
       address: order.address,
       total: order.orderItems.reduce((acc, item) => {
