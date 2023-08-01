@@ -21,7 +21,7 @@ const Client: React.FC<Props> = ({
   return (
     <div>
       <h2 className='text-2xl font-bold tracking-tight'>Dashboard</h2>
-      <p className='text-sm text-muted-foreground'>Metrics on your store</p>
+      <p className='text-sm text-muted-foreground'>Metrics of your store</p>
       <Separator className='my-8' />
       <div className='grid gap-4 sm:grid-cols-1 lg:grid-cols-3'>
         <Card>
@@ -30,7 +30,7 @@ const Client: React.FC<Props> = ({
             <CircleDollarSign className='h-4 w-4 text-muted-foreground' />
           </CardHeader>
           <CardContent>
-            <div className='text-2xl font-bold'>${totalRevenue}</div>
+            <div className='text-2xl font-bold'>${totalRevenue.toFixed(2)}</div>
             <p className='text-xs text-muted-foreground'>
               Total revenue from all sales
             </p>
@@ -65,7 +65,7 @@ const Client: React.FC<Props> = ({
       </div>
       <Card className='col-span-4 mt-4'>
         <CardHeader>
-          <CardTitle>Overview</CardTitle>
+          <CardTitle>Monthly Revenue</CardTitle>
         </CardHeader>
         <CardContent className='pl-2'>
           <ResponsiveContainer width='100%' height={350}>
