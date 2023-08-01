@@ -19,7 +19,6 @@ const Page: React.FC<Props> = async ({ params }) => {
   return (
     <div className='px-4 py-8 mx-auto max-w-4xl'>
       <Client
-        data={[]}
         totalRevenue={totalRevenue}
         totalSales={totalSales}
         totalStock={totalStock}
