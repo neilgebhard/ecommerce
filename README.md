@@ -1,4 +1,4 @@
-# E-commerce Admin Dashboard
+# E-commerce Admin Dashboard & Store
 
 [E-commerce Admin Dashboard Repository](https://github.com/neilgebhard/ecommerce-admin)
 
@@ -18,7 +18,7 @@ The front-end is developed using React, Next.js, and Tailwind CSS, ensuring an i
 
 [E-commerce Admin Dashboard](https://ecommerce-admin-kappa-indol.vercel.app/)
 
-## Overview
+## Tech Stack
 
 - **Framework**: [Next.js](https://nextjs.org/)
 - **Language**: [TypeScript](https://www.typescriptlang.org/)
