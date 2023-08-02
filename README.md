@@ -1,6 +1,7 @@
 # E-commerce Admin Dashboard
 
 [E-commerce Admin Dashboard Repository](https://github.com/neilgebhard/ecommerce-admin)
+
 [E-commerce Store Repository](https://github.com/neilgebhard/ecommerce-store)
 
 ## Overview
@@ -14,6 +15,7 @@ The front-end is developed using React, Next.js, and Tailwind CSS, ensuring an i
 ## Demo
 
 [E-commerce Store](https://ecommerce-store-nine-eosin.vercel.app/)
+
 [E-commerce Admin Dashboard](https://ecommerce-admin-kappa-indol.vercel.app/)
 
 ## Overview
@@ -32,8 +34,8 @@ The front-end is developed using React, Next.js, and Tailwind CSS, ensuring an i
 Clone GitHub repository, install dependencies, and run development server:
 
 ```bash
-$ git clone https://github.com/neilgebhard/ecommerce-store
-$ cd ecommerce-store
+$ git clone https://github.com/neilgebhard/ecommerce-admin
+$ cd ecommerce-admin
 $ npm i
 $ npm run dev
 ```
