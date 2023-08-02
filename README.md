@@ -1,40 +1,48 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# E-commerce Admin Dashboard
 
-## Getting Started
+[E-commerce Admin Dashboard Repository](https://github.com/neilgebhard/ecommerce-admin)
+[E-commerce Store Repository](https://github.com/neilgebhard/ecommerce-store)
 
-First, run the development server:
+## Overview
+
+Hello there! Welcome to my GitHub repository. I am excited to showcase my full-stack web development skills through an E-commerce store with backend admin integration that utilizes the latest technologies. To create this project, I leveraged React, Next.js, TypeScript, PlanetScale, Prisma, Vercel, and Tailwind CSS. This project was created from scratch, showcasing my ability to develop a full-stack web application from ideation to deployment.
+
+My implementation focuses on replicating the essential features of a full-fledged e-commerce application, using such features as user authentication, product management, image uploading, and e-commerce checkout.
+
+The front-end is developed using React, Next.js, and Tailwind CSS, ensuring an intuitive UI exercising strong UX practices that is responsive and scalable across devices. The back-end utilizes PlanetScale, Next.js, Clerk, Vercel, and Stripe to handle user authentication, store management, product management, and store checkout.
+
+## Demo
+
+[E-commerce Store](https://ecommerce-store-nine-eosin.vercel.app/)
+[E-commerce Admin Dashboard](https://ecommerce-admin-kappa-indol.vercel.app/)
+
+## Overview
+
+- **Framework**: [Next.js](https://nextjs.org/)
+- **Language**: [TypeScript](https://www.typescriptlang.org/)
+- **Database**: [PlanetScale (MySQL)](https://planetscale.com/)
+- **ORM**: [Prisma](https://www.prisma.io/)
+- **Authentication**: [Clerk](https://clerk.com/)
+- **Deployment**: [Vercel](https://vercel.com)
+- **Styling**: [Tailwind CSS](https://tailwindcss.com/)
+- **UI Components**: [ShadCN](https://ui.shadcn.com/)
+
+## Running Locally
+
+Clone GitHub repository, install dependencies, and run development server:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+$ git clone https://github.com/neilgebhard/ecommerce-store
+$ cd ecommerce-store
+$ npm i
+$ npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Create a .env.local file similar to .env.example with the required environment variables.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Let's Connect
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+As a passionate developer, I love to explore new technologies, solve real-world problems, and create meaningful applications that can make a positive impact. I'm always open to feedback, collaboration, and constructive criticism. Feel free to explore my projects, raise issues, suggest improvements, or even propose new ideas for future endeavors. Thank you for stopping by my portfolio, and I hope you find something inspiring here. Let's code and make the world a better place, one project at a time!
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
-
-npx prisma generate - Generates Prisma Client for use with the Data Proxy. The generate command will continue to watch the schema.prisma file and re-generate Prisma Client on file changes.
-
-npx prisma db push - Introspects the database to infer and executes the changes required to make your database schema reflect the state of your Prisma schema. By default, after changes have been applied to the database schema, generators are triggered (for example, Prisma Client). You do not need to manually invoke prisma generate.
-
-npx prisma migrate reset - delete database
+Happy coding,
+Neil
