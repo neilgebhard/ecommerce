@@ -13,6 +13,7 @@ import {
   navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu'
 import StoreCombobox from '@/components/store-combobox'
+import { ModeToggle } from './mode-toggle'
 
 const Navbar = ({ stores }: { stores: Store[] }) => {
   const pathname = usePathname()
@@ -75,7 +76,10 @@ const Navbar = ({ stores }: { stores: Store[] }) => {
           ))}
         </NavigationMenuList>
       </NavigationMenu>
-      <UserButton />
+      <div className='flex gap-3 items-center'>
+        <ModeToggle />
+        <UserButton />
+      </div>
     </div>
   )
 }

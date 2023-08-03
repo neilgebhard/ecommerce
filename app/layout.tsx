@@ -4,6 +4,7 @@ import { Inter } from 'next/font/google'
 import { ClerkProvider } from '@clerk/nextjs'
 import { ModalProvider } from '@/app/context/add-store-modal'
 import { Toaster } from 'react-hot-toast'
+import { ThemeProvider } from './context/theme-provider'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -21,8 +22,10 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang='en'>
         <body className={inter.className}>
-          <ModalProvider>{children}</ModalProvider>
-          <Toaster />
+          <ThemeProvider attribute='class' defaultTheme='system' enableSystem>
+            <ModalProvider>{children}</ModalProvider>
+            <Toaster />
+          </ThemeProvider>
         </body>
       </html>
     </ClerkProvider>
