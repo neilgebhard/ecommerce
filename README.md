@@ -1,37 +1,58 @@
 # E-commerce Admin Dashboard & Store
 
-[E-commerce Admin Dashboard Repository](https://github.com/neilgebhard/ecommerce-admin)
+## Introduction
 
-[E-commerce Store Repository](https://github.com/neilgebhard/ecommerce-store)
+Welcome to my full-fledged e-commerce application with both an admin dashboard and store. This project is a simple yet powerful e-commerce application designed to scale to many e-commerce stores. With a user-friendly interface and robust functionality, this e-commerce application is built to display the power of a tech stack centered on Next.js.
 
-## Overview
+## Key Features
 
-Hello there! Welcome to my GitHub repository. I am excited to showcase my full-stack web development skills through an E-commerce store with backend admin integration that utilizes the latest technologies. To create this project, I leveraged React, Next.js, TypeScript, PlanetScale, Prisma, Vercel, and Tailwind CSS. This project was created from scratch, showcasing my ability to develop a full-stack web application from ideation to deployment.
+- **Store Management**: Create, edit, and delete individual e-commerce stores with ease. Be able to have an indefinite amount of stores, each with their own set of products to sell.
 
-My implementation focuses on replicating the essential features of a full-fledged e-commerce application, using such features as user authentication, product management, image uploading, and e-commerce checkout.
+- **Product Management**: Create, edit, and delete products sold from your store. Gain the ability to add descriptors to your products such as category, color, and size.
 
-The front-end is developed using React, Next.js, and Tailwind CSS, ensuring an intuitive UI exercising strong UX practices that is responsive and scalable across devices. The back-end utilizes PlanetScale, Next.js, Clerk, Vercel, and Stripe to handle user authentication, store management, product management, and store checkout.
+- **E-commerce Storefront**: Have your products on display to be sold digitally leveraging the power of Stripe checkout. A sleek interface based on good UX principles will wow your customers.
 
-## Demo
+- **Authentication**: Have your admin dashboard and API routes be authenticated and authorized using the power of Clerk and Next.js using a RESTful interface.
 
-[E-commerce Store](https://ecommerce-store-nine-eosin.vercel.app/)
+- **Image Uploading**: Create, edit, and delete images of your products with ease using the power of Cloudinary.
 
-[E-commerce Admin Dashboard](https://ecommerce-admin-kappa-indol.vercel.app/)
+- **Store Analytics**: Gain insights into the productivity of your store with a small yet extensible set of intuitive charts and statistics. Track your progress and optimize your selling needs.
 
-## Tech Stack
+## Repositories
 
-- **Framework**: [Next.js](https://nextjs.org/)
-- **Language**: [TypeScript](https://www.typescriptlang.org/)
-- **Database**: [PlanetScale (MySQL)](https://planetscale.com/)
-- **ORM**: [Prisma](https://www.prisma.io/)
-- **Authentication**: [Clerk](https://clerk.com/)
-- **Deployment**: [Vercel](https://vercel.com)
-- **Styling**: [Tailwind CSS](https://tailwindcss.com/)
-- **UI Components**: [ShadCN](https://ui.shadcn.com/)
+- [E-commerce Admin Dashboard Repository](https://github.com/neilgebhard/ecommerce-admin)
+- [E-commerce Store Repository](https://github.com/neilgebhard/ecommerce-store)
+
+## Demos
+
+- [E-commerce Store](https://ecommerce-store-nine-eosin.vercel.app/)
+- [E-commerce Admin Dashboard](https://ecommerce-admin-kappa-indol.vercel.app/)
+
+## How to Use
+
+1. **Signup/Login**: Create a new account and log in to the admin dashboard.
+
+2. **Create a Store**: Click on "Create Store" in the navigation bar. Give your store a name.
+
+3. **Create Products**: Click on the "Add New" button on the Products page. Provide product details, such as a name, images, price, category, size, and color.
+
+4. **Create a Storefront**: Create an e-commerce storefront using the API routes found in your admin dashboard. Stripe configuration may be required. Use the e-commerce store repository as a blueprint.
+
+## Technologies Used
+
+- **Frontend**: HTML, CSS, TypeScript, React.js, Next.js, Tailwind CSS
+- **Backend**: Node.js, Prisma, PlanetScale (MySQL)
+- **Hosting**: Vercel
+- **Payment Processing**: Stripe
+- **Image Uploading**: Cloudinary
+- **Authentication**: Clerk
+- **Data Visualization**: Recharts
 
 ## Running Locally
 
-Clone GitHub repository, install dependencies, and run development server:
+1. Clone GitHub repository
+2. Install dependencies
+3. Run the development server
 
 ```bash
 $ git clone https://github.com/neilgebhard/ecommerce-admin
@@ -40,11 +61,8 @@ $ npm i
 $ npm run dev
 ```
 
-Create a .env.local file similar to .env.example with the required environment variables.
+4. Create a .env.local file similar to .env.example with the required environment variables
 
 ## Let's Connect
 
-As a passionate developer, I love to explore new technologies, solve real-world problems, and create meaningful applications that can make a positive impact. I'm always open to feedback, collaboration, and constructive criticism. Feel free to explore my projects, raise issues, suggest improvements, or even propose new ideas for future endeavors. Thank you for stopping by my portfolio, and I hope you find something inspiring here. Let's code and make the world a better place, one project at a time!
-
-Happy coding,
-Neil
+I'm always open to feedback, collaboration, and constructive criticism. Feel free to explore this project, raise issues, or suggest improvements. Happy coding.
