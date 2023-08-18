@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Welcome to my full-fledged e-commerce application with both an admin dashboard and store. This project is a simple yet powerful e-commerce application designed to scale to many e-commerce stores. With a user-friendly interface and robust functionality, this e-commerce application is built to display the power of a tech stack centered on Next.js.
+Welcome to my full-fledged e-commerce application with both an admin dashboard and store. This project is a simple yet powerful e-commerce platform designed to scale to many e-commerce stores. With a user-friendly interface and robust functionality, this e-commerce application is built to display the power of a tech stack centered around Next.js.
 
 ## Key Features
 
@@ -62,7 +62,3 @@ $ npm run dev
 ```
 
 4. Create a .env.local file similar to .env.example with the required environment variables
-
-## Let's Connect
-
-I'm always open to feedback, collaboration, and constructive criticism. Feel free to explore this project, raise issues, or suggest improvements. Happy coding.
